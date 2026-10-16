@@ -10,6 +10,11 @@ Scan configured ranges, hold a conversation to its end, then resume scanning. Br
 
 [Installation and user guide](docs/en/guide.md) · [Architecture / formats](docs/en/architecture.md) · [Changelog](CHANGELOG.md)
 
+![Demo archive: frequency groups, named recordings, favorites and reception levels](docs/assets/demo-archive.jpg)
+
+*Illustrative English UI with invented data and silent test recordings; no real RF
+or user archive. See [receiver settings](docs/en/guide.md#configure-reception).*
+
 ## Windows — demo
 
 Download the repository with **Code → Download ZIP** and extract it, or clone it

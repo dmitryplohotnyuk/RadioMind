@@ -11,3 +11,4 @@
 *.css text eol=lf
 *.html text eol=lf
 *.svg text eol=lf
+*.jpg binary

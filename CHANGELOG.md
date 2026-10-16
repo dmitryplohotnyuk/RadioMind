@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — documentation screenshots
+
+- Add labelled demo archive/settings screenshots to English, Ukrainian and Russian
+  documentation, with a disposable mock demo for reproduction.
+- Export only the two visually reviewed image hashes, preserving their bytes.
+
 ## Unreleased — public repository preparation
 
 - Refresh English, Ukrainian and Russian entry points and validation evidence.

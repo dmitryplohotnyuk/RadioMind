@@ -10,6 +10,11 @@ from pathlib import Path
 from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[1]
+# Reviewed screenshots from scripts/demo.py, never operator archive screenshots.
+IMAGES = {
+    "docs/assets/demo-archive.jpg": "558ff83e179ad837781a91e4f8d229e041f76673d812fa97df183bcb4baad65d",
+    "docs/assets/demo-settings.jpg": "3cdfe93ab9218a33021e57dc4da0bbfcc20e7f2ae01f07096f207648db85990d",
+}
 ROOT_FILES = {
     ".gitignore",
     ".gitattributes",
@@ -57,7 +62,7 @@ SENSITIVE = re.compile(
 
 
 def candidates(root: Path) -> list[Path]:
-    paths = {root / name for name in ROOT_FILES | EXACT}
+    paths = {root / name for name in ROOT_FILES | EXACT | IMAGES.keys()}
     for tree, extensions in TREES.items():
         paths.update(p for p in (root / tree).rglob("*") if p.suffix in extensions)
     result = []
@@ -78,6 +83,13 @@ def candidates(root: Path) -> list[Path]:
 def validate(root: Path, paths: list[Path]) -> None:
     public = {p.resolve() for p in paths}
     for path in paths:
+        name = path.relative_to(root).as_posix()
+        if name in IMAGES:
+            if hashlib.sha256(path.read_bytes()).hexdigest() != IMAGES[name]:
+                raise ValueError(
+                    f"Screenshot changed; visually review and update its hash: {name}"
+                )
+            continue
         content = path.read_text(encoding="utf-8-sig")
         if "\x00" in content or SENSITIVE.search(content):
             raise ValueError(
@@ -118,7 +130,11 @@ def export(root: Path, destination: Path) -> dict[str, str]:
     for source in paths:
         name = source.relative_to(root).as_posix()
         # Normalize source text for reproducible Windows/Linux checkout contents.
-        data = source.read_text(encoding="utf-8-sig").replace("\r\n", "\n").encode()
+        data = (
+            source.read_bytes()
+            if name in IMAGES
+            else source.read_text(encoding="utf-8-sig").replace("\r\n", "\n").encode()
+        )
         target = destination / name
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes(data)

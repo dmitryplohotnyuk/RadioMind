@@ -26,6 +26,10 @@ def test_export_omits_private_data_and_refuses_overwrite(tmp_path):
         path = source / name
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text("public\n", encoding="utf-8")
+    for name in release.IMAGES:
+        path = source / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes((ROOT / name).read_bytes())
     for name in (
         "data/private.wav",
         "runtime/private.json",
@@ -33,18 +37,32 @@ def test_export_omits_private_data_and_refuses_overwrite(tmp_path):
         "config/local.yaml",
         "docs/PROJECT_STATE.md",
         "AGENTS.md",
+        "docs/assets/private.jpg",
     ):
         path = source / name
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text("private", encoding="utf-8")
     target = tmp_path / "snapshot"
     manifest = release.export(source, target)
-    assert set(manifest) == release.ROOT_FILES | release.EXACT
+    assert set(manifest) == release.ROOT_FILES | release.EXACT | release.IMAGES.keys()
     assert json.loads((target / "SOURCE_MANIFEST.json").read_text())["files"] == manifest
     with zipfile.ZipFile(target.with_suffix(".zip")) as archive:
         assert all("private" not in name for name in archive.namelist())
+        for name, digest in release.IMAGES.items():
+            assert manifest[name] == digest
+            assert (target / name).read_bytes() == (ROOT / name).read_bytes()
+            assert archive.read("snapshot/" + name) == (ROOT / name).read_bytes()
     with pytest.raises(FileExistsError):
         release.export(source, target)
+
+
+def test_changed_demo_screenshot_requires_review(tmp_path):
+    name = next(iter(release.IMAGES))
+    path = tmp_path / name
+    path.parent.mkdir(parents=True)
+    path.write_bytes((ROOT / name).read_bytes() + b"unreviewed")
+    with pytest.raises(ValueError, match="Screenshot changed"):
+        release.validate(tmp_path, [path])
 
 
 @pytest.mark.parametrize(

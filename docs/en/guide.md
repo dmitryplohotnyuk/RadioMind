@@ -78,6 +78,12 @@ Record `dpkg-query -W libhackrf0` with hardware test results.
 
 ## Configure reception
 
+![Demo settings: automatic device selection, gain and scan range switches](../assets/demo-settings.jpg)
+
+*English demo UI; example ranges, no connected receiver. USB selection is disabled
+in mock mode. Reproduce with `python scripts/demo.py` and open http://127.0.0.1:8766/;
+the separate temporary archive contains silent test files, never real RF. Stop with Ctrl+C.*
+
 These examples are syntax examples, **not a grant to monitor a frequency**. Replace
 `XX`, the authorization text and the range with your own permitted configuration.
 The generator writes an ignored local file, refuses overwrite and does not start
@@ -115,6 +121,10 @@ YAML. Range changes take effect at a conversation boundary. All ranges disabled
 means reception stops. Start only with the intended ranges and permissions.
 
 ## Daily use
+
+![Demo archive grouped by frequency with named recordings and favorites](../assets/demo-archive.jpg)
+
+*Invented names, dates and signal levels; illustrative UI, not reception evidence.*
 
 - **Recordings:** expand a frequency group and play a recording. Rename groups and
   recordings from their menus; mark favorite frequencies and add unwanted channels
