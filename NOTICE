@@ -1,0 +1,10 @@
+RadioMind — local RX-only scanner and audio archive
+Copyright (C) 2026 RadioMind contributors
+
+Original RadioMind code is licensed under GPL-3.0-only. Files with an explicit
+SPDX identifier retain that identifier (the TETRA bridges are GPL-3.0-or-later).
+See LICENSE for the full GNU GPL version 3 terms.
+
+Dependencies, externally downloaded models, decoder programs and native libraries
+retain their own licenses. They are not included in the source distribution.
+See THIRD_PARTY.md and docs/DEPENDENCIES.md before redistributing those components.

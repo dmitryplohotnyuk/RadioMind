@@ -1,0 +1,11 @@
+# Safe default: no physical receiver, recording or externally reachable server.
+source: mock
+rx_only: true
+mode: sweep
+country: null
+legal_basis: null
+windows: []
+fft_size: 2048
+averages: 8
+frame_period_ms: 200
+max_metadata_rows: 100000

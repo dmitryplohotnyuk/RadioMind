@@ -1,0 +1,48 @@
+{
+  "retrieved_on": "2026-10-15",
+  "purpose": "Public recorded DMR regression references; no user captures",
+  "license": "No explicit reusable media license established. Do not redistribute media; download locally for testing only. Host/software licenses are not assumed to cover samples.",
+  "decoder": "DSD-neo v2.10.0, existing pinned installation; no new dependencies",
+  "files": [
+    {
+      "file": "DMR.zip",
+      "url": "https://www.sigidwiki.com/images/f/f5/DMR.zip",
+      "source_page": "https://www.sigidwiki.com/wiki/File:DMR.zip",
+      "sha256": "985c1683a1a1504c850d8dcf8c3492074ff305a56ba80540dbc4b8e8356b1173",
+      "size_bytes": 5503269,
+      "preparation": "Stereo signed PCM16 IQ, 48000 Hz, 34.1 s. Invert Q for native decoder polarity; keep original ZIP unchanged."
+    },
+    {
+      "file": "DMR_TDMA_signal.mp3",
+      "url": "https://www.sigidwiki.com/images/b/b6/DMR_TDMA_signal.mp3",
+      "source_page": "https://www.sigidwiki.com/wiki/Digital_Mobile_Radio_(DMR)",
+      "sha256": "b5db2a21adf094fb286904e66a5fb1d79cc723def573e6a678998aa186737009",
+      "size_bytes": 248760,
+      "preparation": "Mono demodulated DMR signal, 48000 Hz, 17.5 s. Decode MP3 via pinned decoder sndfile.dll, invert polarity, retain PCM level."
+    },
+    {
+      "file": "Decoded_DMR_voice.mp3",
+      "url": "https://www.sigidwiki.com/images/2/29/Decoded_DMR_voice.mp3",
+      "source_page": "https://www.sigidwiki.com/wiki/Digital_Mobile_Radio_(DMR)",
+      "sha256": "a6940e169155004ef54bf085a224df64c4ea569e79a22e72f6bddfb4c166f90d",
+      "size_bytes": 113592,
+      "preparation": "Published voice counterpart, 15.185854 s. Comparison only, never decoder input."
+    },
+    {
+      "file": "brandmeister-baseband.wav",
+      "url": "https://adryd.co/public/20240122_141253_446800000_BrandMeister_UP_24_baseband.wav",
+      "source_page": "https://github.com/DSheirer/sdrtrunk/issues/1803",
+      "sha256": "5cc14eb12ce0d2fb452582484f415dc873b8b6c5df8d7a3186bcdd183986e675",
+      "size_bytes": 6438956,
+      "preparation": "Stereo PCM16 IQ, 50000 Hz, 32.19456 s; scipy resample_poly float IQ 24/25 to 48000 Hz. Normal polarity."
+    },
+    {
+      "file": "adry-decoded-audio.zip",
+      "url": "https://github.com/DSheirer/sdrtrunk/files/14041180/adry-decoded-audio.zip",
+      "source_page": "https://github.com/DSheirer/sdrtrunk/issues/1803",
+      "sha256": "1ac86f3f79338f4619900da6f4ddb3086203e9426738034045fcc22d44cde5b1",
+      "size_bytes": 590214,
+      "preparation": "Published DSD-FME decoded counterpart, mono 8000 Hz, 39.84 s; contains repeated/looped speech."
+    }
+  ]
+}

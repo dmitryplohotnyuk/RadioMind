@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools==80.9.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "radiomind"
+version = "0.7.0"
+description = "Local RX-only scanner and audio archive"
+license = "GPL-3.0-only"
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Operating System :: Microsoft :: Windows",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: Python :: 3",
+]
+requires-python = ">=3.11,<3.14"
+dependencies = [
+  "fastapi==0.115.12", "uvicorn==0.34.2", "numpy==2.2.5",
+  "websockets==15.0.1", "pydantic==2.11.4", "PyYAML==6.0.2", "psutil==7.0.0",
+  "scipy==1.15.3", "webrtcvad-wheels==2.0.14",
+  "onnxruntime==1.23.2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==8.3.5", "httpx==0.28.1", "ruff==0.11.8", "mypy==1.15.0",
+       "types-PyYAML==6.0.12.20250402", "types-psutil==7.0.0.20250401"]
+
+[project.scripts]
+radiomind = "radiomind.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["radiomind*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["hardware: requires explicit RF approval and a connected HackRF"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.11"
+check_untyped_defs = true
+disallow_untyped_defs = true
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = ["scipy.*", "webrtcvad", "onnxruntime"]
+ignore_missing_imports = true

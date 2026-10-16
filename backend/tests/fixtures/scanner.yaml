@@ -1,0 +1,126 @@
+# Test-only configuration. No real authorization or captured data.
+source: hackrf
+rx_only: true
+mode: sweep
+allow_custom_ranges: true
+country: TEST
+legal_basis: Synthetic configuration fixture; never use for hardware reception
+windows:
+- name: VHF 140-148
+  start_hz: 140000000
+  end_hz: 148000000
+  sample_rate_sps: 8000000
+  dwell_ms: 300
+  allowed_actions:
+  - observe
+  - demodulate
+  - record_audio
+- name: VHF 146-154
+  start_hz: 146000000
+  end_hz: 154000000
+  sample_rate_sps: 8000000
+  dwell_ms: 300
+  allowed_actions:
+  - observe
+  - demodulate
+  - record_audio
+- name: VHF 152-160
+  start_hz: 152000000
+  end_hz: 160000000
+  sample_rate_sps: 8000000
+  dwell_ms: 300
+  allowed_actions:
+  - observe
+  - demodulate
+  - record_audio
+- name: VHF 158-166
+  start_hz: 158000000
+  end_hz: 166000000
+  sample_rate_sps: 8000000
+  dwell_ms: 300
+  allowed_actions:
+  - observe
+  - demodulate
+  - record_audio
+- name: VHF 162-170
+  start_hz: 162000000
+  end_hz: 170000000
+  sample_rate_sps: 8000000
+  dwell_ms: 300
+  allowed_actions:
+  - observe
+  - demodulate
+  - record_audio
+- name: UHF 420-428
+  start_hz: 420000000
+  end_hz: 428000000
+  sample_rate_sps: 8000000
+  dwell_ms: 300
+  allowed_actions:
+  - observe
+  - demodulate
+  - record_audio
+- name: UHF 426-434
+  start_hz: 426000000
+  end_hz: 434000000
+  sample_rate_sps: 8000000
+  dwell_ms: 300
+  allowed_actions:
+  - observe
+  - demodulate
+  - record_audio
+- name: UHF 432-440
+  start_hz: 432000000
+  end_hz: 440000000
+  sample_rate_sps: 8000000
+  dwell_ms: 300
+  allowed_actions:
+  - observe
+  - demodulate
+  - record_audio
+- name: UHF 438-446
+  start_hz: 438000000
+  end_hz: 446000000
+  sample_rate_sps: 8000000
+  dwell_ms: 300
+  allowed_actions:
+  - observe
+  - demodulate
+  - record_audio
+- name: UHF 442-450
+  start_hz: 442000000
+  end_hz: 450000000
+  sample_rate_sps: 8000000
+  dwell_ms: 300
+  allowed_actions:
+  - observe
+  - demodulate
+  - record_audio
+fft_size: 2048
+averages: 8
+frame_period_ms: 100
+scan_period_ms: 50
+max_metadata_rows: 1000000
+metadata_full_policy: drop_new
+audio:
+  enabled: true
+  vad_engine: silero
+  pre_roll_ms: 1600
+  iq_history_ms: 1000
+  hang_ms: 6000
+  carrier_grace_ms: 10000
+  verify_ms: 1800
+  max_recording_seconds: 180
+  max_archive_mb: 1024
+  cooldown_seconds: 300
+  cooldown_failures: 3
+digital:
+  enabled: true
+  input_mode: iq
+  dstar_probe_enabled: true
+  p25p2_probe_enabled: true
+  dmr_probe_enabled: true
+  tetra_enabled: false
+  verify_ms: 7000
+  analog_decision_ms: 800
+  max_buffer_mb: 64
