@@ -22,7 +22,9 @@ class DeviceList(ct.Structure):
 
 def enumerate_native(library: Path) -> list[dict[str, Any]]:
     path = library.resolve(strict=True)
-    directory = os.add_dll_directory(str(path.parent)) if os.name == "nt" else None
+    directory = None
+    if sys.platform == "win32":
+        directory = os.add_dll_directory(str(path.parent))
     try:
         lib = ct.CDLL(str(path))
         lib.hackrf_init.argtypes, lib.hackrf_init.restype = [], ct.c_int
@@ -59,6 +61,9 @@ def enumerate_native(library: Path) -> list[dict[str, Any]]:
 
 
 def list_devices(library: Path) -> list[dict[str, Any]]:
+    creationflags = 0
+    if sys.platform == "win32":
+        creationflags = subprocess.CREATE_NO_WINDOW
     try:
         completed = subprocess.run(
             [sys.executable, "-m", "radiomind.devices", str(library.resolve())],
@@ -66,7 +71,7 @@ def list_devices(library: Path) -> list[dict[str, Any]]:
             text=True,
             encoding="utf-8",
             timeout=10,
-            creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
+            creationflags=creationflags,
         )
     except subprocess.TimeoutExpired as exc:
         raise RuntimeError("Поиск HackRF занял слишком много времени. Повторите попытку.") from exc

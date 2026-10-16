@@ -198,6 +198,9 @@ class Cleaner:
         try:
             command = [sys.executable, "-m", "radiomind.cleaning", str(output), *map(str, paths)]
             env = {**os.environ, "OPENBLAS_NUM_THREADS": "1", "OMP_NUM_THREADS": "1"}
+            creationflags = 0
+            if sys.platform == "win32":
+                creationflags = subprocess.CREATE_NO_WINDOW | subprocess.BELOW_NORMAL_PRIORITY_CLASS
             result = await asyncio.to_thread(
                 subprocess.run,
                 command,
@@ -205,9 +208,7 @@ class Cleaner:
                 text=True,
                 timeout=120,
                 env=env,
-                creationflags=(subprocess.CREATE_NO_WINDOW | subprocess.BELOW_NORMAL_PRIORITY_CLASS)
-                if sys.platform == "win32"
-                else 0,
+                creationflags=creationflags,
             )
             if result.returncode or not output.is_file() or output.stat().st_size != needed:
                 raise RuntimeError("Не удалось очистить запись; оригинал сохранён")

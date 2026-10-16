@@ -3,6 +3,7 @@
 import ctypes as ct
 import os
 import queue
+import sys
 import threading
 import time
 from collections import deque
@@ -45,7 +46,9 @@ class HackRFSource:
         self.lna_gain, self.vga_gain = RX_GAINS[receive_gain]
         self.adc: dict[str, float | int] = {}
         path = library.resolve(strict=True)
-        self.dll_directory = os.add_dll_directory(str(path.parent)) if os.name == "nt" else None
+        self.dll_directory = None
+        if sys.platform == "win32":
+            self.dll_directory = os.add_dll_directory(str(path.parent))
         self.lib = ct.CDLL(str(path))
         self.device = ct.c_void_p()
         self.device_serial: str | None = None
