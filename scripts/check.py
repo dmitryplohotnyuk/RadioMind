@@ -7,6 +7,8 @@ import sys
 from pathlib import Path
 from uuid import uuid4
 
+import yaml
+
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -21,6 +23,8 @@ def main() -> None:
     )
     # Git/source exports omit runtime; pytest requires the basetemp parent.
     (ROOT / "runtime").mkdir(exist_ok=True)
+    for workflow in (ROOT / ".github" / "workflows").glob("*.y*ml"):
+        yaml.safe_load(workflow.read_text(encoding="utf-8"))
     commands = [
         [sys.executable, "-m", "ruff", "check", "backend"],
         [sys.executable, "-m", "ruff", "format", "--check", "backend"],

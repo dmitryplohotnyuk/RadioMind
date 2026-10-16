@@ -4,6 +4,7 @@
 
 - Refresh English, Ukrainian and Russian entry points and validation evidence.
 - Create the test runtime directory on fresh checkouts before passing it to pytest.
+- Quote the pip binary-only argument in CI YAML and parse workflow YAML locally.
 - Review the source-only allowlist, licenses, pinned Windows/Linux CI and export;
   retain local archives, profiles and engineering history outside public Git.
 
