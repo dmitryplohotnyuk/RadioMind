@@ -14,7 +14,7 @@ Publication checks: 2026-10-16, Windows x64, CPython 3.13.1.
 | PowerShell / POSIX shell scripts | Parser / bash syntax checks passed; shell syntax is not Linux execution |
 | Public source review | 143 files: allowlist, Git candidates, private-path/secret patterns and local document links passed |
 | Linux x64 / CPython 3.12 packages | All pinned wheels resolved and downloaded; not executed |
-| GitHub CI | Windows/Linux Python 3.11–3.13 recipes prepared; not run on GitHub yet |
+| GitHub CI | All six Windows / Ubuntu 24.04, Python 3.11–3.13 jobs passed on d8cc3ad; locked installation, pip check, source checks, mock HTTP and export |
 
 The clean-copy check exposed a missing runtime directory on a fresh checkout;
 the check runner now creates it before pytest. The complete rerun passed.
@@ -25,7 +25,14 @@ The 11 clean-copy skips concern absent optional model/native/synthetic speech
 assets, not successful acceptance of those features. One upstream Starlette/AnyIO
 BlockingPortal deprecation warning remains in both suites.
 
-No installed Linux guest was available. Linux USB throughput, native Linux cleanup,
+[GitHub run and logs](https://github.com/dmitryplohotnyuk/RadioMind/actions/runs/38852045111)
+record the first complete matrix. Initial CI found YAML quoting and platform-stub
+errors; both were fixed before this successful run. The Windows-only branches also
+passed 40 focused local tests and mypy for both target platforms. GitHub reports
+an upstream Node 20 action-runtime deprecation warning for the pinned actions.
+
+Linux software checks ran on GitHub-hosted Ubuntu; no local Linux guest or USB
+receiver was used. Linux USB throughput, native Linux cleanup,
 VM/container deployment and Raspberry Pi are not accepted. Pi is deferred by scope.
 Hardware acquisition was not restarted or retuned for these checks. Native digital
 reference tests are separate from generic CI; no new clear-voice acceptance is claimed.
